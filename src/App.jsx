@@ -67,7 +67,10 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Posts loggedIn={loggedIn} />} />
+        <Route
+          path="/"
+          element={<Posts loggedIn={loggedIn} userId={userId} />}
+        />
         <Route
           path="/sign-up"
           element={<SignUpForm setLoggedIn={setLoggedIn} />}
