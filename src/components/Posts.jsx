@@ -12,13 +12,11 @@ export default function Posts({ loggedIn }) {
       const postData = await postReponse.json();
 
       setPosts(postData);
-      console.log(postData);
 
       const commentsResponse = await fetch('http://localhost:3000/comments');
       const commentsData = await commentsResponse.json();
 
       setComments(commentsData);
-      console.log(commentsData);
     };
 
     getPostsAndComments().catch((e) => console.log(e));

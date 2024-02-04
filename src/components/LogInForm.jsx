@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function LogInForm() {
+// eslint-disable-next-line react/prop-types
+export default function LogInForm({ setLoggedIn }) {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,9 +18,31 @@ export default function LogInForm() {
       return;
     }
 
-    navigate('/');
+    const loginOptions = {
+      username: username,
+      password: password,
+    };
 
-    setErrors([]);
+    const loginResponse = await fetch('http://localhost:3000/auth/log-in', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginOptions),
+    });
+    const loginData = await loginResponse.json();
+    if (loginData.token) {
+      setLoggedIn(true);
+      localStorage.setItem('JWT-Blog-Front', loginData.token);
+      console.log(loginData.token);
+      navigate('/');
+      window.location.reload();
+      setErrors([]);
+    } else {
+      setErrors([loginData]);
+      return;
+    }
   };
   return (
     <div>
