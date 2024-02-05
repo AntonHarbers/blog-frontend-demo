@@ -39,7 +39,6 @@ function App() {
   }, []);
 
   const HandleLogOut = () => {
-    // delete JWT from
     localStorage.setItem('JWT-Blog-Front', '');
     setUserId(null);
     setLoggedIn(false);
@@ -73,7 +72,6 @@ function App() {
           </Link>
         )}
       </nav>
-
       <Routes>
         <Route
           path="/"
