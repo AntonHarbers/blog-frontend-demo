@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Comment from './Comment';
+import CommentsForm from './CommentsForm';
 
 // eslint-disable-next-line react/prop-types
 export default function Posts({ userId }) {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
-
-  const [commentText, setCommentText] = useState('');
 
   useEffect(() => {
     const getPostsAndComments = async () => {
@@ -25,12 +24,7 @@ export default function Posts({ userId }) {
     getPostsAndComments().catch((e) => console.log(e));
   }, []);
 
-  const HandlePostingComment = async (e, postId) => {
-    e.preventDefault();
-    if (commentText == '') {
-      window.alert('Comment Cant be empty');
-      return;
-    }
+  const HandlePostingComment = async (e, postId, commentText) => {
     // api call here
 
     const response = await fetch('http://localhost:3000/comments', {
@@ -48,9 +42,9 @@ export default function Posts({ userId }) {
     });
 
     const data = await response.json();
-    console.log(data);
+    console.log(data._id);
+    console.log(data.author);
     setComments([...comments, data]);
-    setCommentText('');
   };
 
   return (
@@ -60,31 +54,35 @@ export default function Posts({ userId }) {
           <div key={post._id}>
             <h1>{post.title}</h1>
             <p>{post.content}</p>
-            {comments.map((comment) => {
-              if (comment.post._id == post._id) {
-                return (
-                  <div key={comment._id}>
-                    <Comment comment={comment} />
-                  </div>
-                );
-              }
-            })}
+            <div>Comments:</div>
+            <div className="CommentsBox">
+              {comments
+                .slice()
+                .reverse()
+                .map((comment) => {
+                  if (comment.post._id == post._id) {
+                    return (
+                      <div key={comment._id}>
+                        <Comment comment={comment} />
+                      </div>
+                    );
+                  }
+
+                  if (comment.post == post._id) {
+                    return (
+                      <div key={comment._id}>
+                        <Comment comment={comment} />
+                      </div>
+                    );
+                  }
+                })}
+            </div>
+
             {userId != null && (
-              <form>
-                <label htmlFor="comment"></label>
-                <input
-                  type="text"
-                  id="comment"
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  onClick={(e) => HandlePostingComment(e, post._id)}
-                >
-                  Add Comment
-                </button>
-              </form>
+              <CommentsForm
+                HandlePostingComment={HandlePostingComment}
+                post={post}
+              />
             )}
           </div>
         ) : null;

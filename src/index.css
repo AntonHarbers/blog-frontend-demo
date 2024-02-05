@@ -12,3 +12,52 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.CommentForm {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  width: 25%;
+  min-width: 250px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.CommentFormInput {
+  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  resize: none;
+  padding: 0.2rem;
+  font-size: 1rem;
+}
+
+.CommentContainer {
+  background-color: beige;
+  border-radius: 10px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  color: #242424;
+  width: 25%;
+  min-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: start;
+}
+
+.CommentContent {
+  font-size: 1.2rem;
+}
+
+.AdminComment {
+  color: red;
+  font-weight: 500;
+}
+
+.CommentAuthor,
+.CommentTimestamp {
+  font-size: 0.8rem;
+}

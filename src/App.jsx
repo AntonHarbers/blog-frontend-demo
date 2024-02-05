@@ -9,8 +9,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     const CheckSession = async () => {
       const JWT = localStorage.getItem('JWT-Blog-Front');
       if (JWT == '') return;
@@ -33,6 +35,7 @@ function App() {
     };
 
     CheckSession();
+    setIsLoading(false);
   }, []);
 
   const HandleLogOut = () => {
@@ -42,6 +45,11 @@ function App() {
     setLoggedIn(false);
     window.location.reload();
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <BrowserRouter>
       <nav>
