@@ -10,12 +10,14 @@ export default function Posts({ userId }) {
 
   useEffect(() => {
     const getPostsAndComments = async () => {
-      const postReponse = await fetch('http://localhost:3000/posts');
+      const postReponse = await fetch(`${import.meta.env.VITE_API_PATH}posts`);
       const postData = await postReponse.json();
 
       setPosts(postData);
 
-      const commentsResponse = await fetch('http://localhost:3000/comments');
+      const commentsResponse = await fetch(
+        `${import.meta.env.VITE_API_PATH}comments`
+      );
       const commentsData = await commentsResponse.json();
 
       setComments(commentsData);
@@ -27,12 +29,14 @@ export default function Posts({ userId }) {
   const HandlePostingComment = async (e, postId, commentText) => {
     // api call here
 
-    const response = await fetch('http://localhost:3000/comments', {
+    const response = await fetch(`${import.meta.env.VITE_API_PATH}comments`, {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('JWT-Blog-Front')}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          import.meta.env.VITE_JWT
+        )}`,
       },
       body: JSON.stringify({
         content: commentText,
@@ -42,8 +46,6 @@ export default function Posts({ userId }) {
     });
 
     const data = await response.json();
-    console.log(data._id);
-    console.log(data.author);
     setComments([...comments, data]);
   };
 

@@ -29,14 +29,17 @@ export default function SignUpForm({ setLoggedIn }) {
       email: 'test@test.com',
     };
 
-    const signupResponse = await fetch('http://localhost:3000/auth/sign-up', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(signupOptions),
-    }).catch(() => {
+    const signupResponse = await fetch(
+      `${import.meta.env.VITE_API_PATH}auth/sign-up`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupOptions),
+      }
+    ).catch(() => {
       setErrors(['Something went wrong while signing up, try again later']);
       return;
     });
@@ -53,19 +56,21 @@ export default function SignUpForm({ setLoggedIn }) {
       password: password,
     };
 
-    const loginResponse = await fetch('http://localhost:3000/auth/log-in', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginOptions),
-    });
+    const loginResponse = await fetch(
+      `${import.meta.env.VITE_API_PATH}auth/log-in`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginOptions),
+      }
+    );
     const loginData = await loginResponse.json();
     if (loginData.token) {
       setLoggedIn(true);
-      localStorage.setItem('JWT-Blog-Front', loginData.token);
-      console.log(loginData.token);
+      localStorage.setItem(import.meta.env.VITE_JWT, loginData.token);
       navigate('/');
       window.location.reload();
 

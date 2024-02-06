@@ -6,7 +6,7 @@ Welcome to my Blog Author Page Demo project, a front-end showcase designed to co
 [Author Page Repo](https://github.com/AntonHarbers/blog-author-page-demo)
 [Author Page]()
 [Rest-API Repo](https://github.com/AntonHarbers/Blog-Api-Demo)
-[Rest-API Enpoint]()
+[Rest-API Enpoint](https://cerulean-diagnostic-watercress.glitch.me/)
 
 ## Project Overview
 

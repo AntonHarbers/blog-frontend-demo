@@ -23,19 +23,21 @@ export default function LogInForm({ setLoggedIn }) {
       password: password,
     };
 
-    const loginResponse = await fetch('http://localhost:3000/auth/log-in', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginOptions),
-    });
+    const loginResponse = await fetch(
+      `${import.meta.env.VITE_API_PATH}auth/log-in`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginOptions),
+      }
+    );
     const loginData = await loginResponse.json();
     if (loginData.token) {
       setLoggedIn(true);
-      localStorage.setItem('JWT-Blog-Front', loginData.token);
-      console.log(loginData.token);
+      localStorage.setItem(import.meta.env.VITE_JWT, loginData.token);
       navigate('/');
       window.location.reload();
       setErrors([]);

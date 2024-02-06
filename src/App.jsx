@@ -14,19 +14,21 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
     const CheckSession = async () => {
-      const JWT = localStorage.getItem('JWT-Blog-Front');
+      const JWT = localStorage.getItem(import.meta.env.VITE_JWT);
       if (JWT == '') return;
       // send get request to session route to see if signed in
-      const response = await fetch('http://localhost:3000/auth/session', {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_PATH}auth/session`,
+        {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+          },
+        }
+      );
 
       const data = await response.json();
-      console.log(data);
       if (data && data.message == 'You are signed in.') {
         setLoggedIn(true);
         setUserId(data.user_id);
@@ -39,7 +41,7 @@ function App() {
   }, []);
 
   const HandleLogOut = () => {
-    localStorage.setItem('JWT-Blog-Front', '');
+    localStorage.setItem(import.meta.env.VITE_JWT, '');
     setUserId(null);
     setLoggedIn(false);
     window.location.reload();
