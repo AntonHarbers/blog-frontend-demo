@@ -2,9 +2,9 @@
 
 Welcome to my Blog Author Page Demo project, a front-end showcase designed to complement the Blog API project I previously developed. This project is built with React, integrating seamlessly with the Blog API to create a dynamic, user-friendly blog authoring and reading experience.
 
-[Live Link]()
+[Live Link](https://famous-dolphin-e32fb4.netlify.app/)
 [Author Page Repo](https://github.com/AntonHarbers/blog-author-page-demo)
-[Author Page]()
+[Author Page](https://blog-author-page-demo-osga3btfh-tmonee23.vercel.app/)
 [Rest-API Repo](https://github.com/AntonHarbers/Blog-Api-Demo)
 [Rest-API Enpoint](https://cerulean-diagnostic-watercress.glitch.me/)
 
